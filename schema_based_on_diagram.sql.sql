@@ -20,10 +20,14 @@ CREATE TABLE invoices (
     total_amount DECIMAL,
     generated_at TIMESTAMP,
     payed_at TIMESTAMP,
-    medical_histories REFERENCES medical_histories (id)
+    medical_histories_id INT REFERENCES medical_histories (id)
 );
 
-
+CREATE TABLE treatments (
+    id INT PRIMARY KEY NOT NULL,
+    type VARCHAR(150),
+    name VARCHAR(150)
+);
 CREATE TABLE invoice_items (
     id INT PRIMARY KEY NOT NULL, 
     unit_price DECIMAL,
@@ -32,3 +36,5 @@ CREATE TABLE invoice_items (
     invoice_id INT REFERENCES invoices (id),
     treatment_id INT REFERENCES treatments (id)
 );
+
+
