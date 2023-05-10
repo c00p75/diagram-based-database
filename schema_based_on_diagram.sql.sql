@@ -20,7 +20,7 @@ CREATE TABLE invoices (
     total_amount DECIMAL,
     generated_at TIMESTAMP,
     payed_at TIMESTAMP,
-    medical_histories_id INT REFERENCES medical_histories (id)
+    medical_histories_id INT REFERENCES medical_histories(id)
 );
 
 CREATE TABLE treatments (
@@ -28,6 +28,7 @@ CREATE TABLE treatments (
     type VARCHAR(150),
     name VARCHAR(150)
 );
+
 CREATE TABLE invoice_items (
     id INT PRIMARY KEY NOT NULL, 
     unit_price DECIMAL,
@@ -42,6 +43,15 @@ CREATE TABLE medical_histories_has_treatments (
     treatment_id int REFERENCES treatments(id)
 );
 
-CREATE INDEX invoice_index on invoices(medical_histories_id);
 
 CREATE INDEX patient_id_index on medical_histories(patient_id);
+
+CREATE INDEX medical_histories_index on invoices(medical_histories_id);
+
+CREATE INDEX invoice_id_index on invoice_items(invoice_id);
+
+CREATE INDEX treatment_id_index on invoice_items(treatment_id);
+
+CREATE INDEX medical_history_id_index on medical_histories_has_treatments(medical_history_id);
+
+CREATE INDEX treatment_id_has_treatment_index on medical_histories_has_treatments(treatment_id);
